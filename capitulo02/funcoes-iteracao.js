@@ -18,3 +18,7 @@ console.log(even);
 
 let total = numbers.reduce((previous, current, index) => previous + current);
 console.log(total);
+
+for (let n of numbers) {
+    console.log((n % 2 == 0) ? 'even' : 'odd');
+}
