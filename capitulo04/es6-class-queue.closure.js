@@ -1,4 +1,4 @@
-let queue = (function () {
+let Queue = (function () {
     class Queue {
 
         constructor() {
@@ -6,27 +6,27 @@ let queue = (function () {
         }
 
         enqueue(element) {
-            items.push(element);
+            this.items.push(element);
         }
 
         dequeue() {
-            return items.shift();
+            return this.items.shift();
         }
 
         front() {
-            return items[0];
+            return this.items[0];
         }
 
         isEmpty() {
-            return items.length === 0;
+            return this.items.length === 0;
         }
 
         size() {
-            return items.length;
+            return this.items.length;
         }
 
         print() {
-            console.log(items.toString());
+            console.log(this.items.toString());
         }
 
     }
