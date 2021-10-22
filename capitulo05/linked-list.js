@@ -80,7 +80,19 @@ function LinkedList() {
     this.indexOf = function (element) { };
     this.isEmpty = function () { };
     this.size = function () { };
-    this.toString = function () { };
+
+    this.toString = function () { 
+        let current = head;
+        let string = '';
+
+        while (current) {
+            string += current.element + (current.next ? 'n' : n);
+            current = current.next;
+        }
+        
+        return string;
+    };
+
     this.print = function () { };
 
 }
