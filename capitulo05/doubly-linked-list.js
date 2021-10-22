@@ -77,6 +77,16 @@ function DoublyLinkedList() {
 
             if (position === 0) {
                 head = current.next;
+
+                if (length === 1) {
+                    tail = null;
+                } else {
+                    head.prev = null;
+                }
+            } else if (position === length) {
+                current = tail;
+                tail = current.prev;
+                tail.next = null;
             } else {
                 while (index++ < position) {
                     previous = current;
@@ -84,6 +94,7 @@ function DoublyLinkedList() {
                 }
 
                 previous.next = current.next;
+                current.next.prev = previous;
             }
 
             length--;
@@ -93,12 +104,12 @@ function DoublyLinkedList() {
         }
     };
 
-    this.remove = function (element) { 
+    this.remove = function (element) {
         let index = this.indexOf(element);
         return this.removeAt(index);
     };
-    
-    this.indexOf = function (element) { 
+
+    this.indexOf = function (element) {
         let current = head;
         let index = -1;
 
@@ -106,7 +117,7 @@ function DoublyLinkedList() {
             if (element === current.element) {
                 return ++index;
             }
-            
+
             index++;
             current = current.next;
         }
@@ -114,15 +125,15 @@ function DoublyLinkedList() {
         return -1;
     };
 
-    this.isEmpty = function () { 
+    this.isEmpty = function () {
         return length === 0;
     };
 
-    this.size = function () { 
+    this.size = function () {
         return length;
     };
 
-    this.toString = function () { 
+    this.toString = function () {
         let current = head;
         let string = '';
 
@@ -134,7 +145,7 @@ function DoublyLinkedList() {
         return string;
     };
 
-    this.getHead = function () { 
+    this.getHead = function () {
         return head;
     };
 
