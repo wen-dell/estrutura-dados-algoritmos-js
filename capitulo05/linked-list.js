@@ -8,7 +8,25 @@ function LinkedList() {
     let length = 0;
     let head = null;
 
-    this.append = function(element) {};
+    this.append = function(element) {
+        let node = new Node(element);
+        let current;
+
+        if (head === null) {
+            head = node;
+        } else {
+            current = head;
+
+            while (current.next) {
+                current = current.next;
+            }
+
+            current.next = node;
+        }
+
+        length++;
+    };
+
     this.insert = function(position, element) {};
     this.removeAt = function(position) {};
     this.remove = function(element) {};
@@ -19,3 +37,7 @@ function LinkedList() {
     this.print = function() {};
 
 }
+
+let linkedList = new LinkedList();
+linkedList.append(10);
+linkedList.append(15);
