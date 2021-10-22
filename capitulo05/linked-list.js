@@ -77,7 +77,23 @@ function LinkedList() {
     };
 
     this.remove = function (element) { };
-    this.indexOf = function (element) { };
+    
+    this.indexOf = function (element) { 
+        let current = head;
+        let index = -1;
+
+        while (current) {
+            if (element === current.element) {
+                return ++index;
+            }
+            
+            index++;
+            current = current.next;
+        }
+
+        return -1;
+    };
+
     this.isEmpty = function () { };
     this.size = function () { };
 
@@ -89,7 +105,7 @@ function LinkedList() {
             string += current.element + (current.next ? 'n' : n);
             current = current.next;
         }
-        
+
         return string;
     };
 
@@ -100,3 +116,8 @@ function LinkedList() {
 let linkedList = new LinkedList();
 linkedList.append(10);
 linkedList.append(15);
+linkedList.append(20);
+linkedList.append(22);
+console.log(linkedList.indexOf(10));
+console.log(linkedList.indexOf(15));
+console.log(linkedList.indexOf(20));
