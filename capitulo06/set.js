@@ -8,8 +8,15 @@ function Set() {
         }
         return false;
     };
-    
-    this.delete = function(value) {};
+
+    this.delete = function(value) {
+        if (this.has(value)) {
+            delete items[value];
+            return true;
+        }
+        return false;
+    };
+
     this.has = function(value) {
         return items.hasOwnProperty(value);
     };
