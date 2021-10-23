@@ -1,7 +1,14 @@
 function Set() {
     let items = {};
 
-    this.add = function(value) {};
+    this.add = function(value) {
+        if (!this.has(value)) {
+            items[value] = value;
+            return true;
+        }
+        return false;
+    };
+    
     this.delete = function(value) {};
     this.has = function(value) {
         return items.hasOwnProperty(value);
