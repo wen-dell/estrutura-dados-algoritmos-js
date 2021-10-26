@@ -32,6 +32,22 @@ function BinarySearchTree() {
         }
     };
 
+    let preOrderTraverseNode = function(node, callback) {
+        if (node !== null) {
+            callback(node.key);
+            preOrderTraverseNode(node.left, callback);
+            preOrderTraverseNode(node.right, callback);
+        }
+    };
+
+    let postOrderTraverseNode = function(node, callback) {
+        if (node !== null) {
+            postOrderTraverseNode(node.left, callback);
+            postOrderTraverseNode(node.right, callback);
+            callback(node.key);
+        }
+    };
+
     this.insert = function(key) {
         let newNode = new Node(key);
         if (root === null) {
@@ -47,8 +63,14 @@ function BinarySearchTree() {
         inOrderTraverseNode(root, callback);
     };
 
-    this.preOrderTraverse = function() {};
-    this.postOrderTraverse = function() {};
+    this.preOrderTraverse = function() {
+        preOrderTraverseNode(root, callback);
+    };
+
+    this.postOrderTraverse = function() {
+        postOrderTraverseNode(root, callback);
+    };
+
     this.min = function() {};
     this.max = function() {};
     this.remove = function(key) {};
