@@ -48,6 +48,39 @@ function BinarySearchTree() {
         }
     };
 
+    let minNode = function(node) {
+        if (node) {
+            while (node && node.left !== null) {
+                node = node.left;
+            }
+            return node.key;
+        }
+        return null;
+    };
+
+    let maxNode = function(node) {
+        if (node) {
+            while (node && node.right !== null) {
+                node = node.right;
+            }
+            return node.key;
+        }
+        return null;
+    };
+
+    let searchNode = function(node, key) {
+        if (node === null) {
+            return false;
+        }
+        if (key < node.key) {
+            return searchNode(node.left, key);
+        } else if (key > node.key) {
+            return searchNode(node.right, key);
+        } else {
+            return true;
+        }
+    };
+
     this.insert = function(key) {
         let newNode = new Node(key);
         if (root === null) {
@@ -57,22 +90,30 @@ function BinarySearchTree() {
         }
     };
 
-    this.search = function(key) {};
+    this.search = function(key) {
+        return searchNode(root, key);
+    };
     
     this.inOrderTraverse = function(callback) {
         inOrderTraverseNode(root, callback);
     };
 
-    this.preOrderTraverse = function() {
+    this.preOrderTraverse = function(callback) {
         preOrderTraverseNode(root, callback);
     };
 
-    this.postOrderTraverse = function() {
+    this.postOrderTraverse = function(callback) {
         postOrderTraverseNode(root, callback);
     };
 
-    this.min = function() {};
-    this.max = function() {};
+    this.min = function() {
+        return minNode(root);
+    };
+
+    this.max = function() {
+        return maxNode(root);
+    };
+
     this.remove = function(key) {};
 
 }
@@ -97,4 +138,6 @@ tree.insert(20);
 tree.insert(18);
 tree.insert(25);
 tree.insert(6);
-tree.inOrderTraverse(printNode);
+//tree.inOrderTraverse(printNode);
+//tree.preOrderTraverse(printNode);
+tree.postOrderTraverse(printNode);
