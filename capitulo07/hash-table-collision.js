@@ -24,6 +24,14 @@ function HashTable() {
         return table[loseloseHashCode(key)];
     };
 
+    this.print = function() {
+        for (let i = 0; i < table.length; i++) {
+            if (table[i] !== undefined) {
+                console.log(i + ": " + table[i]);
+            }
+        }
+    };
+
 }
 
 let hash = new HashTable();
@@ -37,3 +45,5 @@ hash.put('Jonathan', 'jonathan@email.com');
 hash.put('Jamie', 'jamie@email.com');
 hash.put('Sue', 'sue@email.com');
 hash.put('Mindy', 'mindy@email.com');
+
+hash.print();
