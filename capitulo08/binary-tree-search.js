@@ -68,6 +68,44 @@ function BinarySearchTree() {
         return null;
     };
 
+    let removeNode = function(node, key) {
+        if (node === null) {
+            return null;
+        }
+        if (key < node.key) {
+            node.left = removeNode(node.left, key);
+            return node;
+        } else if (key > node.key) {
+            node.right = removeNode(node.right, key);
+            return node;
+        } else {
+            if (node.left === null && node.right === null) {
+                node = null;
+                return node;
+            }
+
+            if (node.left === null) {
+                node = node.right;
+                return node;
+            } else if (node.right === null) {
+                node = node.left;
+                return node;
+            }
+
+            let aux = findMinNode(node.right);
+            node.key = aux.key;
+            node.right = removeNode(node.right, aux.key);
+            return node;
+        }
+    };
+
+    this.findMinNode = function(node) {
+        while (node && node.left !== null) {
+            node = node.left;
+        }
+        return node;
+    };
+
     let searchNode = function(node, key) {
         if (node === null) {
             return false;
@@ -114,7 +152,9 @@ function BinarySearchTree() {
         return maxNode(root);
     };
 
-    this.remove = function(key) {};
+    this.remove = function(key) {
+        root = removeNode(root, key);
+    };
 
 }
 
