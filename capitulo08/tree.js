@@ -24,6 +24,14 @@ function BinarySearchTree() {
         }
     };
 
+    let inOrderTraverseNode = function(node, callback) {
+        if (node !== null) {
+            inOrderTraverseNode(node.left, callback);
+            callback(node.key);
+            inOrderTraverseNode(node.right, callback);
+        }
+    };
+
     this.insert = function(key) {
         let newNode = new Node(key);
         if (root === null) {
@@ -34,13 +42,21 @@ function BinarySearchTree() {
     };
 
     this.search = function(key) {};
-    this.inOrderTraverse = function() {};
+    
+    this.inOrderTraverse = function(callback) {
+        inOrderTraverseNode(root, callback);
+    };
+
     this.preOrderTraverse = function() {};
     this.postOrderTraverse = function() {};
     this.min = function() {};
     this.max = function() {};
     this.remove = function(key) {};
 
+}
+
+function printNode(value) {
+    console.log(value);
 }
 
 let tree = new BinarySearchTree();
@@ -59,3 +75,4 @@ tree.insert(20);
 tree.insert(18);
 tree.insert(25);
 tree.insert(6);
+tree.inOrderTraverse(printNode);
