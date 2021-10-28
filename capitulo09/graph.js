@@ -1,3 +1,64 @@
+function Stack() {
+    let items = [];
+    
+    this.push = function(element) {
+        items.push(element);
+    };
+
+    this.pop = function() {
+        return items.pop();
+    };
+
+    this.peek = function() {
+        return items[items.length - 1];
+    };
+
+    this.isEmpty = function() {
+        return items.length === 0;
+    };
+
+    this.size = function() {
+        return items.length;
+    };
+
+    this.clear = function() {
+        items = [];
+    };
+
+    this.print = function() {
+        console.log(items.toString()); 
+    };
+}
+
+function Queue() {
+    let items = [];
+
+    this.enqueue = function(element) {
+        items.push(element);
+    };
+
+    this.dequeue = function() {
+        return items.shift();
+    };
+
+    this.front = function() {
+        return items[0];
+    };
+
+    this.isEmpty = function() {
+        return items.length === 0;
+    };
+
+    this.size = function() {
+        return items.length;
+    };
+
+    this.print = function() {
+        console.log(items.toString());
+    };
+
+}
+
 function Dictionary() {
     
     let items = {};
@@ -53,6 +114,36 @@ function Dictionary() {
 function Graph() {
     let vertices = [];
     let adjList = new Dictionary();
+    let initializeColor = function() {
+        let color = [];
+        for (let i = 0; i < vertices.length; i++) {
+            color[vertices[i]] = 'white';
+        }
+        return color;
+    };
+
+    this.bfs = function(v, callback) {
+        let color = initializeColor();
+        queue = new Queue();
+        queue.enqueue(v);
+
+        while (!queue.isEmpty()) {
+            let u = queue.dequeue();
+            let neighbors = adjList.get(u);
+            color[u] = 'grey';
+            for (let i = 0; i < neighbors.length; i++) {
+                let w = neighbors[i];
+                if (color[w] === 'white') {
+                    color[w] = 'grey';
+                    queue.enqueue(w);
+                }
+            }
+            color[u] = 'black';
+            if (callback) {
+                callback(u);
+            }
+        }
+    };
 
     this.addVertex = function(v) {
         vertices.push(v);
@@ -79,6 +170,10 @@ function Graph() {
 
 }
 
+function printNode(value) {
+    console.log('Visited vertex: ' + value);
+}
+
 let graph = new Graph();
 let myVertices = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
 for (let i = 0; i < myVertices.length; i++) {
@@ -96,3 +191,5 @@ graph.addEdge('B', 'F');
 graph.addEdge('E', 'I');
 
 console.log(graph.toString());
+
+graph.bfs(myVertices[0], printNode);
