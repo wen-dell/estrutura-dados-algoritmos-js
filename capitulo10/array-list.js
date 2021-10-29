@@ -25,6 +25,22 @@ function ArrayList() {
             }
         }
     };
+
+    this.selectionSort = function() {
+        let length = array.length;
+        let indexMin;
+        for (let i = 0; i < length - 1; i++) {
+            indexMin = i;
+            for (let j = i; j < length; j++) {
+                if (array[indexMin] > array[j]) {
+                    indexMin = j;
+                }               
+            }
+            if (i !== indexMin) {
+                swap(array, i, indexMin);
+            }    
+        }
+    };
 }
 
 function createNonSortedArray(size) {
@@ -38,4 +54,9 @@ function createNonSortedArray(size) {
 let array = createNonSortedArray(5);
 console.log(array.toString());
 array.bubbleSort();
+console.log(array.toString());
+
+array = createNonSortedArray(5);
+console.log(array.toString());
+array.selectionSort();
 console.log(array.toString());
