@@ -114,12 +114,28 @@ function Dictionary() {
 function Graph() {
     let vertices = [];
     let adjList = new Dictionary();
+    
     let initializeColor = function() {
         let color = [];
         for (let i = 0; i < vertices.length; i++) {
             color[vertices[i]] = 'white';
         }
         return color;
+    };
+
+    let dfsVisit = function(u, color, callback) {
+        color[u] = 'grey';
+        if (callback) {
+            callback(u);
+        }
+        let neighbors = adjList.get(u);
+        for (let i = 0; i < neighbors.length; i++) {
+            let w = neighbors[i];
+            if (color[w] === 'white') {
+                dfsVisit(w, color, callback);
+            }
+        }
+        color[u] = 'black';
     };
 
     this.bfs = function(v, callback) {
@@ -178,6 +194,16 @@ function Graph() {
         };
     };
 
+    this.dfs = function(callback) {
+        let color = initializeColor();
+
+        for (let i = 0; i < vertices.length; i++) {
+            if (color[vertices[i]] === 'white') {
+                dfsVisit(vertices[i], color, callback);
+            }
+        }
+    };
+
     this.addVertex = function(v) {
         vertices.push(v);
         adjList.set(v, []);
@@ -229,3 +255,5 @@ graph.bfs(myVertices[0], printNode);
 
 let shortestPathA = graph.BFS(myVertices[0]);
 console.log(shortestPathA);
+
+graph.dfs(printNode);
