@@ -124,7 +124,7 @@ function Graph() {
 
     this.bfs = function(v, callback) {
         let color = initializeColor();
-        queue = new Queue();
+        let queue = new Queue();
         queue.enqueue(v);
 
         while (!queue.isEmpty()) {
@@ -143,6 +143,39 @@ function Graph() {
                 callback(u);
             }
         }
+    };
+
+    this.BFS = function(v) {
+        let color = initializeColor();
+        let queue = new Queue();
+        let d = [];
+        let pred = [];
+        queue.enqueue(v);
+
+        for (let i = 0; i < vertices.length; i++) {
+            d[vertices[i]] = 0;
+            pred[vertices[i]] = null;
+        }
+
+        while (!queue.isEmpty()) {
+            let u = queue.dequeue();
+            let neighbors = adjList.get(u);
+            color[u] = 'grey';
+            for (let i = 0; i < neighbors.length; i++) {
+                let w = neighbors[i];
+                if (color[w] === 'white') {
+                    color[w] = 'grey';
+                    d[w] = d[u] + 1;
+                    pred[w] = u;
+                    queue.enqueue(w);
+                }
+            }
+            color[u] = 'black';
+        }
+        return {
+            distances: d,
+            predecessors: pred
+        };
     };
 
     this.addVertex = function(v) {
@@ -193,3 +226,6 @@ graph.addEdge('E', 'I');
 console.log(graph.toString());
 
 graph.bfs(myVertices[0], printNode);
+
+let shortestPathA = graph.BFS(myVertices[0]);
+console.log(shortestPathA);
