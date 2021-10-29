@@ -138,6 +138,24 @@ function Graph() {
         color[u] = 'black';
     };
 
+    let DFSVisit = function(u, color, d, f, p) {
+        console.log('discovered ' + u);
+        color[u] = 'grey';
+        d[u] = ++time;
+        let neighbors = adjList.get(u);
+        for (let i = 0; i < neighbors.length; i++) {
+            let w = neighbors[i];
+            if (color[w] === 'white') {
+                p[w] = u;
+                DFSVisit(w, color, d, f, p);
+            }
+        }
+
+        color[u] = 'black';
+        f[u] = ++time;
+        console.log('explored ' + u);
+    };
+
     this.bfs = function(v, callback) {
         let color = initializeColor();
         let queue = new Queue();
@@ -202,6 +220,33 @@ function Graph() {
                 dfsVisit(vertices[i], color, callback);
             }
         }
+    };
+
+    let time = 0;
+    this.DFS = function(callback) {
+        let color = initializeColor();
+        let d = [];
+        let f = [];
+        let p = [];
+        time = 0;
+
+        for (let i = 0; i < vertices.length; i++) {
+            f[vertices[i]] = 0;
+            d[vertices[i]] = 0;
+            p[vertices[i]] = null;
+        }
+
+        for (let i = 0; i < vertices.length; i++) {
+            if (color[vertices[i]] === 'white') {
+                DFSVisit(vertices[i], color, d, f, p);
+            }
+        }
+
+        return {
+            discovery: d,
+            finished: f,
+            predecessors: p
+        };
     };
 
     this.addVertex = function(v) {
